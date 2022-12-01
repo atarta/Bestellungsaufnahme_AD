@@ -23,6 +23,30 @@ public class Ingredient {
     @Column(name = "price", nullable = false)
     private float price;
 
+    public Set<Order_Ingredients> getOrder_ingredients() {
+        return order_ingredients;
+    }
+
+    public void setOrder_ingredients(Set<Order_Ingredients> order_ingredients) {
+        this.order_ingredients = order_ingredients;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
     public Long getId() {
         return id;
     }

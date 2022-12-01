@@ -35,6 +35,53 @@ public class Order {
     @Column(name = "price", nullable = false)
     private Float price;
 
+    public Set<Order_Product> getOrder_products() {
+        return order_products;
+    }
+
+    public void setOrder_products(Set<Order_Product> order_products) {
+        this.order_products = order_products;
+    }
+
+    public Set<Order_Ingredients> getOrder_ingredients() {
+        return order_ingredients;
+    }
+
+    public void setOrder_ingredients(Set<Order_Ingredients> order_ingredients) {
+        this.order_ingredients = order_ingredients;
+    }
+
+    public boolean isDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(boolean delivery) {
+        this.delivery = delivery;
+    }
+
+    public LocalDate getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDate timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public LocalDate getConfirmed_time() {
+        return confirmed_time;
+    }
+
+    public void setConfirmed_time(LocalDate confirmed_time) {
+        this.confirmed_time = confirmed_time;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
+    }
 
     public Long getId() {
         return id;

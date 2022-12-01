@@ -29,7 +29,37 @@ public class Order_Product {
     @Column(name = "product_price", nullable = false)
     private float product_price;
 
+    public Order getOrder() {
+        return order;
+    }
 
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public long getQuantitiy() {
+        return quantitiy;
+    }
+
+    public void setQuantitiy(long quantitiy) {
+        this.quantitiy = quantitiy;
+    }
+
+    public float getProduct_price() {
+        return product_price;
+    }
+
+    public void setProduct_price(float product_price) {
+        this.product_price = product_price;
+    }
 
     public Long getId() {
         return id;

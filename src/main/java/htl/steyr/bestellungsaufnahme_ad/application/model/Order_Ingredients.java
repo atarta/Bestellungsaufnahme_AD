@@ -30,6 +30,37 @@ public class Order_Ingredients {
     @Column(name = "quantitiy", nullable = false)
     private long quantitiy;
 
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Ingredient getIngredient() {
+        return ingredient;
+    }
+
+    public void setIngredient(Ingredient ingredient) {
+        this.ingredient = ingredient;
+    }
+
+    public boolean isOntop() {
+        return ontop;
+    }
+
+    public void setOntop(boolean ontop) {
+        this.ontop = ontop;
+    }
+
+    public long getQuantitiy() {
+        return quantitiy;
+    }
+
+    public void setQuantitiy(long quantitiy) {
+        this.quantitiy = quantitiy;
+    }
 
     public Long getId() {
         return id;
