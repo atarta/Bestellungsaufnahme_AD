@@ -1,5 +1,6 @@
 package htl.steyr.bestellungsaufnahme_ad.application.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
@@ -16,6 +17,13 @@ public class Product {
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     Set<Order_Product> order_products;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoryId")
+    Category category;
+
+
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -54,5 +62,13 @@ public class Product {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
