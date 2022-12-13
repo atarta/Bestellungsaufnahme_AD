@@ -71,6 +71,17 @@ public class BestellungsaufnahmeRestController {
         productRepository.delete(productRepository.findById(id));
     }
 
+    @PostMapping("/product/update/{productId}")
+    public void updateProduct(@PathVariable(name = "productId") int id, @RequestBody Product product){
+        //hier wäre ein if noch schön
+        Product p = productRepository.findById(id);
+        p.setCategory(product.getCategory());
+        p.setName(product.getName());
+        p.setPrice(product.getPrice());
+        productRepository.save(p);
+
+        //productRepository.update(p.getCategory(), p.getName(), p.getPrice(), p.getId());
+    }
 
     //-------------------------Order------------------------------------------
 
