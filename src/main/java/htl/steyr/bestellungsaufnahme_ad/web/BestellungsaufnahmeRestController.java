@@ -53,19 +53,23 @@ public class BestellungsaufnahmeRestController {
     public List<Product>productListlist(){return productRepository.findAll();}
 
     @PostMapping("/product/create")
-    public void createOroduct(@RequestBody Product product){
+    public void createProduct(@RequestBody Product product){
         //hier wäre ein if noch schön
         productRepository.save(product);
     }
 
     @PostMapping("/product/addToCategory/{categoryId}")
-    public void addOwner(@PathVariable(name = "categoryId") int id,@RequestBody Product product) {
+    public void addToCategory(@PathVariable(name = "categoryId") int id,@RequestBody Product product) {
         product.setCategory(categoryRepository.findById(id));
         productRepository.save(product);
 
     }
 
-
+    @PostMapping("/product/delete/{productId}")
+    public void deleteProduct(@PathVariable(name = "productId") int id){
+        //hier wäre ein if noch schön
+        productRepository.delete(productRepository.findById(id));
+    }
 
 
     //-------------------------Order------------------------------------------
