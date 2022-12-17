@@ -4,9 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
+import java.util.Set;
+
 @EnableAutoConfiguration
 @Entity
-@Table(name = "order_product")
+@Table(name = "ordering_product")
 public class Ordering_Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,6 +30,17 @@ public class Ordering_Product {
 
     @Column(name = "product_price", nullable = false)
     private float product_price;
+
+    @OneToMany(mappedBy = "ordering_product", fetch = FetchType.LAZY)
+    Set<Ordering_Product_Ingredients> orderingProduct_ingredients;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Ordering getOrdering() {
         return ordering;
@@ -61,11 +74,11 @@ public class Ordering_Product {
         this.product_price = product_price;
     }
 
-    public Long getId() {
-        return id;
+    public Set<Ordering_Product_Ingredients> getOrderingProduct_ingredients() {
+        return orderingProduct_ingredients;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setOrderingProduct_ingredients(Set<Ordering_Product_Ingredients> orderingProduct_ingredients) {
+        this.orderingProduct_ingredients = orderingProduct_ingredients;
     }
 }

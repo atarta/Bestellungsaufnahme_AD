@@ -8,7 +8,7 @@ import java.util.Set;
 
 @EnableAutoConfiguration
 @Entity
-@Table(name = "produkt")
+@Table(name = "product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,9 +23,6 @@ public class Product {
     @JoinColumn(name = "categoryId")
     Category category;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    Set<Product_Ingredients> product_ingredients;
-
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -33,20 +30,20 @@ public class Product {
     @Column(name = "price", nullable = false)
     private float price;
 
-    public Set<Product_Ingredients> getProduct_ingredients() {
-        return product_ingredients;
+    public Long getId() {
+        return id;
     }
 
-    public void setProduct_ingredients(Set<Product_Ingredients> product_ingredients) {
-        this.product_ingredients = product_ingredients;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Set<Ordering_Product> getOrdering_products() {
-        return ordering_products;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setOrdering_products(Set<Ordering_Product> ordering_products) {
-        this.ordering_products = ordering_products;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public String getName() {
@@ -63,21 +60,5 @@ public class Product {
 
     public void setPrice(float price) {
         this.price = price;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
     }
 }

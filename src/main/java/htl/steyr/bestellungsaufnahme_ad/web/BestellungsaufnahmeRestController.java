@@ -13,7 +13,7 @@ public class BestellungsaufnahmeRestController {
     @Autowired
     IngredientRepository ingredientRepository;
     @Autowired
-    Product_IngredientsRepository product_ingredientsRepository;
+    Ordering_Product_IngredientsRepository orderingProduct_ingredientsRepository;
     @Autowired
     Ordering_ProdcutRepository ordering_prodcutRepository;
     @Autowired

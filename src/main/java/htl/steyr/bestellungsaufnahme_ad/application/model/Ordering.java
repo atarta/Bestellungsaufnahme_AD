@@ -1,5 +1,6 @@
 package htl.steyr.bestellungsaufnahme_ad.application.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
@@ -32,14 +33,13 @@ public class Ordering {
     @Column(name = "price", nullable = false)
     private Float price;
 
-    public Set<Ordering_Product> getOrdering_products() {
-        return ordering_products;
+    public Long getId() {
+        return id;
     }
 
-    public void setOrdering_products(Set<Ordering_Product> ordering_products) {
-        this.ordering_products = ordering_products;
+    public void setId(Long id) {
+        this.id = id;
     }
-
 
     public boolean isDelivery() {
         return delivery;
@@ -71,14 +71,6 @@ public class Ordering {
 
     public void setPrice(Float price) {
         this.price = price;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 }
 
