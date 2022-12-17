@@ -55,8 +55,16 @@ public class BestellungsaufnahmeRestController {
         productRepository.save(product);
     }
 
-    @PostMapping("/product/addToCategory/{categoryId}")
+    @PostMapping("/product/createAndAddToCategory/{categoryId}")
     public void addToCategory(@PathVariable(name = "categoryId") int id,@RequestBody Product product) {
+        product.setCategory(categoryRepository.findById(id));
+        productRepository.save(product);
+
+    }
+
+    @PostMapping("/product/addToCategorybyID/{categoryId}")
+    public void addToCategory(@PathVariable(name = "categoryId") int id,@RequestParam int product_Id) {
+        Product product = productRepository.findById(product_Id);
         product.setCategory(categoryRepository.findById(id));
         productRepository.save(product);
 
