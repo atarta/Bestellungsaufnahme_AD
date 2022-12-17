@@ -8,48 +8,38 @@ import java.util.Set;
 
 @EnableAutoConfiguration
 @Entity
-@Table(name = "order")
-public class Order {
+@Table(name = "ordering")
+public class Ordering {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
 
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
-    Set<Order_Product> order_products;
+    @OneToMany(mappedBy = "ordering", fetch = FetchType.LAZY)
+    Set<Ordering_Product> ordering_products;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
-    Set<Order_Ingredients> order_ingredients;
-
-
-    @Column(name = "delivery", nullable = false)
+    @Column(name = "delivery")
     private boolean delivery;
 
-    @Column(name = "timestamp", nullable = false)
+    @Column(name = "timestamp")
     private LocalDate timestamp;
 
-    @Column(name = "confirmed_time", nullable = false)
+    @Column(name = "confirmed_time")
     private LocalDate confirmed_time;
 
     @Column(name = "price", nullable = false)
     private Float price;
 
-    public Set<Order_Product> getOrder_products() {
-        return order_products;
+    public Set<Ordering_Product> getOrdering_products() {
+        return ordering_products;
     }
 
-    public void setOrder_products(Set<Order_Product> order_products) {
-        this.order_products = order_products;
+    public void setOrdering_products(Set<Ordering_Product> ordering_products) {
+        this.ordering_products = ordering_products;
     }
 
-    public Set<Order_Ingredients> getOrder_ingredients() {
-        return order_ingredients;
-    }
-
-    public void setOrder_ingredients(Set<Order_Ingredients> order_ingredients) {
-        this.order_ingredients = order_ingredients;
-    }
 
     public boolean isDelivery() {
         return delivery;

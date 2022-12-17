@@ -2,10 +2,7 @@ package htl.steyr.bestellungsaufnahme_ad.web;
 
 
 import htl.steyr.bestellungsaufnahme_ad.application.model.*;
-import org.apache.catalina.LifecycleState;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,11 +13,11 @@ public class BestellungsaufnahmeRestController {
     @Autowired
     IngredientRepository ingredientRepository;
     @Autowired
-    Order_IngredientsRepository order_ingredientsRepository;
+    Product_IngredientsRepository product_ingredientsRepository;
     @Autowired
-    Order_ProdcutRepository order_prodcutRepository;
+    Ordering_ProdcutRepository ordering_prodcutRepository;
     @Autowired
-    OrderRepository orderRepository;
+    OrderingRepository orderingRepository;
     @Autowired
     ProductRepository productRepository;
     @Autowired
@@ -83,6 +80,6 @@ public class BestellungsaufnahmeRestController {
         //productRepository.update(p.getCategory(), p.getName(), p.getPrice(), p.getId());
     }
 
-    //-------------------------Order------------------------------------------
+    //-------------------------Ordering------------------------------------------
 
 }

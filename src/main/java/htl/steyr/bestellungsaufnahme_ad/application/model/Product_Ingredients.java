@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 @EnableAutoConfiguration
 @Entity
-@Table(name = "order_ingredients")
-public class Order_Ingredients {
+@Table(name = "product_ingredients")
+public class Product_Ingredients {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -16,26 +16,24 @@ public class Order_Ingredients {
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "orderId")
-    Order order;
+    @JoinColumn(name = "productId")
+    Product product;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ingredientsID")
+    @JoinColumn(name = "ingredientsId")
     Ingredient ingredient;
 
     @Column(name = "ontop", nullable = false)
     private boolean ontop;
 
-    @Column(name = "quantitiy", nullable = false)
-    private long quantitiy;
 
-    public Order getOrder() {
-        return order;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Ingredient getIngredient() {
@@ -54,13 +52,6 @@ public class Order_Ingredients {
         this.ontop = ontop;
     }
 
-    public long getQuantitiy() {
-        return quantitiy;
-    }
-
-    public void setQuantitiy(long quantitiy) {
-        this.quantitiy = quantitiy;
-    }
 
     public Long getId() {
         return id;

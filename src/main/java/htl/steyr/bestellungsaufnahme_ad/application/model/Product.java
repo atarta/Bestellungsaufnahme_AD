@@ -16,13 +16,15 @@ public class Product {
     private Long id;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    Set<Order_Product> order_products;
+    Set<Ordering_Product> ordering_products;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoryId")
     Category category;
 
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    Set<Product_Ingredients> product_ingredients;
 
 
     @Column(name = "name", nullable = false)
@@ -31,13 +33,20 @@ public class Product {
     @Column(name = "price", nullable = false)
     private float price;
 
-
-    public Set<Order_Product> getOrder_products() {
-        return order_products;
+    public Set<Product_Ingredients> getProduct_ingredients() {
+        return product_ingredients;
     }
 
-    public void setOrder_products(Set<Order_Product> order_products) {
-        this.order_products = order_products;
+    public void setProduct_ingredients(Set<Product_Ingredients> product_ingredients) {
+        this.product_ingredients = product_ingredients;
+    }
+
+    public Set<Ordering_Product> getOrdering_products() {
+        return ordering_products;
+    }
+
+    public void setOrdering_products(Set<Ordering_Product> ordering_products) {
+        this.ordering_products = ordering_products;
     }
 
     public String getName() {
