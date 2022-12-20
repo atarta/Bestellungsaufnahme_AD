@@ -8,8 +8,8 @@ import java.util.Set;
 
 @EnableAutoConfiguration
 @Entity
-@Table(name = "ordering_product")
-public class Ordering_Product {
+@Table(name = "orderingProduct")
+public class OrderingProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -28,11 +28,11 @@ public class Ordering_Product {
     @Column(name = "quantitiy", nullable = false)
     private long quantitiy;
 
-    @Column(name = "product_price", nullable = false)
-    private float product_price;
+    @Column(name = "productPrice", nullable = false)
+    private float productPrice;
 
-    @OneToMany(mappedBy = "ordering_product", fetch = FetchType.LAZY)
-    Set<Ordering_Product_Ingredients> orderingProduct_ingredients;
+    @OneToMany(mappedBy = "orderingProduct", fetch = FetchType.LAZY)
+    Set<OrderingProductIngredients> orderingProductIngredients;
 
 
 
@@ -68,19 +68,19 @@ public class Ordering_Product {
         this.quantitiy = quantitiy;
     }
 
-    public float getProduct_price() {
-        return product_price;
+    public float getProductPrice() {
+        return productPrice;
     }
 
-    public void setProduct_price(float product_price) {
-        this.product_price = product_price;
+    public void setProductPrice(float productPrice) {
+        this.productPrice = productPrice;
     }
 
-    public Set<Ordering_Product_Ingredients> getOrderingProduct_ingredients() {
-        return orderingProduct_ingredients;
+    public Set<OrderingProductIngredients> getOrderingProductIngredients() {
+        return orderingProductIngredients;
     }
 
-    public void setOrderingProduct_ingredients(Set<Ordering_Product_Ingredients> orderingProduct_ingredients) {
-        this.orderingProduct_ingredients = orderingProduct_ingredients;
+    public void setOrderingProductIngredients(Set<OrderingProductIngredients> orderingProductIngredients) {
+        this.orderingProductIngredients = orderingProductIngredients;
     }
 }

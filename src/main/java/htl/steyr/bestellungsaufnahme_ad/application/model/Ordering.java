@@ -3,7 +3,6 @@ package htl.steyr.bestellungsaufnahme_ad.application.model;
 import jakarta.persistence.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -19,7 +18,7 @@ public class Ordering {
 
 
     @OneToMany(mappedBy = "ordering", fetch = FetchType.LAZY)
-    Set<Ordering_Product> ordering_products_ordering;
+    Set<OrderingProduct> orderingProductsOrdering;
 
     @Column(name = "delivery", nullable = false)
     private boolean delivery;
@@ -27,18 +26,18 @@ public class Ordering {
     @Column(name = "timestamp")
     private LocalDateTime timestamp;
 
-    @Column(name = "confirmed_time")
-    private LocalDateTime confirmed_time;
+    @Column(name = "confirmedTime")
+    private LocalDateTime confirmedTime;
 
     @Column(name = "price", nullable = false)
     private Float price;
 
-    public Set<Ordering_Product> getOrdering_products_ordering() {
-        return ordering_products_ordering;
+    public Set<OrderingProduct> getOrderingProductsOrdering() {
+        return orderingProductsOrdering;
     }
 
-    public void setOrdering_products_ordering(Set<Ordering_Product> ordering_products) {
-        this.ordering_products_ordering = ordering_products;
+    public void setOrderingProductsOrdering(Set<OrderingProduct> orderingProducts) {
+        this.orderingProductsOrdering = orderingProducts;
     }
 
     public Long getId() {
@@ -70,12 +69,12 @@ public class Ordering {
         this.timestamp = timestamp;
     }
 
-    public LocalDateTime getConfirmed_time() {
-        return confirmed_time;
+    public LocalDateTime getConfirmedTime() {
+        return confirmedTime;
     }
 
-    public void setConfirmed_time(LocalDateTime confirmed_time) {
-        this.confirmed_time = confirmed_time;
+    public void setConfirmedTime(LocalDateTime confirmedTime) {
+        this.confirmedTime = confirmedTime;
     }
 
     public Float getPrice() {

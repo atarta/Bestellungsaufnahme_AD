@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -20,9 +18,9 @@ public class BestellungsaufnahmeRestController {
     @Autowired
     IngredientRepository ingredientRepository;
     @Autowired
-    Ordering_Product_IngredientsRepository orderingProduct_ingredientsRepository;
+    OrderingProductIngredientsRepository orderingProductIngredientsRepository;
     @Autowired
-    Ordering_ProdcutRepository ordering_prodcutRepository;
+    OrderingProdcutRepository orderingProdcutRepository;
     @Autowired
     OrderingRepository orderingRepository;
     @Autowired
@@ -115,8 +113,8 @@ public class BestellungsaufnahmeRestController {
     }
 
     @PostMapping("/product/addToCategorybyID/{categoryId}")
-    public void addToCategorybyId(@PathVariable(name = "categoryId") int id, @RequestParam int product_Id) {
-        Product product = productRepository.findById(product_Id);
+    public void addToCategorybyId(@PathVariable(name = "categoryId") int id, @RequestParam int productId) {
+        Product product = productRepository.findById(productId);
         if (categoryRepository.findById(id) != null) {
             product.setCategory(categoryRepository.findById(id));
         }
@@ -150,28 +148,47 @@ public class BestellungsaufnahmeRestController {
     }
 
     @PostMapping("/ordering/create")
-    public void createOrdering(@RequestParam Boolean delivery, @RequestParam LocalDate timestamp,
-                               @RequestParam LocalDate confirmed_time, @RequestParam Float price,
-                               @RequestBody String pib) {
+    public void createOrdering(@RequestBody String pib) {
+
         try {
+
             JSONObject object = new JSONObject(pib);
-            object.getBoolean("delivery");
-            object.getString("orderDate");
+            Ordering ordering = new Ordering();
+            ordering.setDelivery(object.getBoolean("delivery"));
+
+            //LocalDateTime orderDate = LocalDateTime.parse(object.getString("orderDate"));
+            //ordering.setConfirmedTime(orderDate);//man könnte confirmed time auch als String machen;
+
+            ordering.setConfirmedTime(LocalDateTime.now());
+            ordering.setTimestamp(LocalDateTime.now());
+
+            ordering.setPrice(13.9f);
+            //es fehlt noch der preis
+            orderingRepository.save(ordering);
 
             JSONArray products = object.getJSONArray("orderProduct");
 
+
             for (int i = 0; i < products.length(); ++i) {
+                OrderingProduct orderingProduct = new OrderingProduct();
                 JSONObject product = products.getJSONObject(i);
-                product.getInt("id");
-                product.getInt("quantity");
+                orderingProduct.setQuantitiy(product.getInt("quantity"));
+                orderingProduct.setProduct(productRepository.findById(product.getInt("id")));
+                orderingProduct.setOrdering(ordering);
+                orderingProduct.setProductPrice(13.9f);
+
+                orderingProdcutRepository.save(orderingProduct);
 
                 JSONArray ingredients = object.getJSONArray("productIngredients");
 
                 for (int j = 0; j < ingredients.length(); ++j) {
+                    OrderingProductIngredients orderingProductIngredients = new OrderingProductIngredients();
                     JSONObject ingredient = ingredients.getJSONObject(i);
-                    ingredient.getInt("id");
-                    ingredient.getBoolean("onTop");
+                    orderingProductIngredients.setIngredient(ingredientRepository.findById(ingredient.getInt("id")));
+                    orderingProductIngredients.setOrderingProduct(orderingProduct);
+                    orderingProductIngredients.setOntop(ingredient.getBoolean("onTop"));
 
+                    orderingProductIngredientsRepository.save(orderingProductIngredients);
                 }
             }
 
@@ -189,7 +206,7 @@ public class BestellungsaufnahmeRestController {
 //        o.setPrice(price);
 //        o.setConfirmed_time(localDateTime.plusHours(1));
 //        for (Product p : productArrayList) {
-//            Ordering_Product op = new Ordering_Product();
+//            OrderingProduct op = new OrderingProduct();
 //            op.setOrdering(o);
 //            op.setProduct(p);
 //            op.setQuantitiy(1);
@@ -198,17 +215,6 @@ public class BestellungsaufnahmeRestController {
 //        }
 //        orderingRepository.save(o);
         //orderingRepository.save(ordering);
-    }
-
-    @PostMapping("/ordering/update/{orderingId}")
-    public void updateOrdering(@PathVariable(name = "orderingId") int id, @RequestBody Ordering ordering) {
-
-        Ordering o = orderingRepository.findById(id);
-        o.setPrice(ordering.getPrice());
-
-        o.setConfirmed_time(ordering.getConfirmed_time());
-        o.setDelivery(ordering.getDelivery());
-        orderingRepository.save(o);
     }
 
 

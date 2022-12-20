@@ -15,7 +15,7 @@ public class Ingredient {
     private Long id;
 
     @OneToMany(mappedBy = "ingredient", fetch = FetchType.LAZY)
-    Set<Ordering_Product_Ingredients> orderingProduct_ingredients;
+    Set<OrderingProductIngredients> orderingProductIngredients;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -23,12 +23,12 @@ public class Ingredient {
     @Column(name = "price", nullable = false)
     private float price;
 
-    public Set<Ordering_Product_Ingredients> getOrderingProduct_ingredients() {
-        return orderingProduct_ingredients;
+    public Set<OrderingProductIngredients> getOrderingProductIngredients() {
+        return orderingProductIngredients;
     }
 
-    public void setOrderingProduct_ingredients(Set<Ordering_Product_Ingredients> orderingProduct_ingredients) {
-        this.orderingProduct_ingredients = orderingProduct_ingredients;
+    public void setOrderingProductIngredients(Set<OrderingProductIngredients> orderingProductIngredients) {
+        this.orderingProductIngredients = orderingProductIngredients;
     }
 
     public Long getId() {

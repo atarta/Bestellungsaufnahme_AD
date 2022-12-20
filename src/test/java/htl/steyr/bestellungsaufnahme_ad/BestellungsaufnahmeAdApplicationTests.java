@@ -1,14 +1,11 @@
 package htl.steyr.bestellungsaufnahme_ad;
 
 import htl.steyr.bestellungsaufnahme_ad.application.model.*;
-import htl.steyr.bestellungsaufnahme_ad.web.BestellungsaufnahmeRestController;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -202,7 +199,7 @@ class BestellungsaufnahmeAdApplicationTests {
     @Order(15)
     void createOrdering() {
 
-        ordering.setConfirmed_time(LocalDateTime.of(2021, 12, 18, 12, 45));
+        ordering.setConfirmedTime(LocalDateTime.of(2021, 12, 18, 12, 45));
         ordering.setTimestamp(LocalDateTime.now());
         ordering.setDelivery(false);
         ordering.setPrice(88.88f);
@@ -219,7 +216,7 @@ class BestellungsaufnahmeAdApplicationTests {
     @Order(16)
     void updateOrdering() {
         Assertions.assertDoesNotThrow(() -> {
-            ordering.setConfirmed_time(LocalDateTime.of(2022, 12, 18, 12, 55));
+            ordering.setConfirmedTime(LocalDateTime.of(2022, 12, 18, 12, 55));
             ordering.setTimestamp(LocalDateTime.of(2022, 12, 18, 11, 55));
             ordering.setDelivery(true);
             ordering.setPrice(44.44f);
