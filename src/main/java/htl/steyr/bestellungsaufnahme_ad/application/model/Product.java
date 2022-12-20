@@ -16,7 +16,7 @@ public class Product {
     private Long id;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    Set<Ordering_Product> ordering_products;
+    Set<Ordering_Product> ordering_products_products;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
@@ -29,6 +29,14 @@ public class Product {
 
     @Column(name = "price", nullable = false)
     private float price;
+
+    public Set<Ordering_Product> getOrdering_products_products() {
+        return ordering_products_products;
+    }
+
+    public void setOrdering_products_products(Set<Ordering_Product> ordering_products) {
+        this.ordering_products_products = ordering_products;
+    }
 
     public Long getId() {
         return id;

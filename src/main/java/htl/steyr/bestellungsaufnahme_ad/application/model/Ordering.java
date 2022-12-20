@@ -1,10 +1,10 @@
 package htl.steyr.bestellungsaufnahme_ad.application.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @EnableAutoConfiguration
@@ -19,19 +19,27 @@ public class Ordering {
 
 
     @OneToMany(mappedBy = "ordering", fetch = FetchType.LAZY)
-    Set<Ordering_Product> ordering_products;
+    Set<Ordering_Product> ordering_products_ordering;
 
-    @Column(name = "delivery")
+    @Column(name = "delivery", nullable = false)
     private boolean delivery;
 
     @Column(name = "timestamp")
-    private LocalDate timestamp;
+    private LocalDateTime timestamp;
 
     @Column(name = "confirmed_time")
-    private LocalDate confirmed_time;
+    private LocalDateTime confirmed_time;
 
     @Column(name = "price", nullable = false)
     private Float price;
+
+    public Set<Ordering_Product> getOrdering_products_ordering() {
+        return ordering_products_ordering;
+    }
+
+    public void setOrdering_products_ordering(Set<Ordering_Product> ordering_products) {
+        this.ordering_products_ordering = ordering_products;
+    }
 
     public Long getId() {
         return id;
@@ -49,19 +57,24 @@ public class Ordering {
         this.delivery = delivery;
     }
 
-    public LocalDate getTimestamp() {
+    public Boolean getDelivery() {
+        return delivery;
+    }
+
+
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDate timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 
-    public LocalDate getConfirmed_time() {
+    public LocalDateTime getConfirmed_time() {
         return confirmed_time;
     }
 
-    public void setConfirmed_time(LocalDate confirmed_time) {
+    public void setConfirmed_time(LocalDateTime confirmed_time) {
         this.confirmed_time = confirmed_time;
     }
 

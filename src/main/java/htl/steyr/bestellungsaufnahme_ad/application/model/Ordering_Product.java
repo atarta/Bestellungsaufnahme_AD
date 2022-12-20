@@ -34,6 +34,8 @@ public class Ordering_Product {
     @OneToMany(mappedBy = "ordering_product", fetch = FetchType.LAZY)
     Set<Ordering_Product_Ingredients> orderingProduct_ingredients;
 
+
+
     public Long getId() {
         return id;
     }

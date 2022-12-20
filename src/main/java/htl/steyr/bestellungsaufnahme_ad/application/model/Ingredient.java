@@ -23,6 +23,14 @@ public class Ingredient {
     @Column(name = "price", nullable = false)
     private float price;
 
+    public Set<Ordering_Product_Ingredients> getOrderingProduct_ingredients() {
+        return orderingProduct_ingredients;
+    }
+
+    public void setOrderingProduct_ingredients(Set<Ordering_Product_Ingredients> orderingProduct_ingredients) {
+        this.orderingProduct_ingredients = orderingProduct_ingredients;
+    }
+
     public Long getId() {
         return id;
     }
