@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:5.6
+    container_name: app-db
+    environment:
+      MYSQL_ROOT_PASSWORD: autodiele
+      MYSQL_DATABASE: autodiele
+      MYSQL_USER: andreas
+      MYSQL_PASSWORD: andreas
+    healthcheck:
+      test: mysql autodiele --user=andreas --password='andreas' --silent --execute "SELECT 1;"
+      interval: 2s
+      timeout: 10s
+      retries: 5
+    ports:
+      - '4306:3306'
+    volumes:
+      - ./mysql:/var/lib/mysql
+  api-test:
+    image: alpine
+    container_name: atarta
+    depends_on:
+      mysql:
+        condition: service_healthy
