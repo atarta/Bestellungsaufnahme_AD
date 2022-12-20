@@ -2,12 +2,16 @@ package htl.steyr.bestellungsaufnahme_ad.web;
 
 
 import htl.steyr.bestellungsaufnahme_ad.application.model.*;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -103,7 +107,7 @@ public class BestellungsaufnahmeRestController {
 
     @PostMapping("/product/createAndAddToCategory/{categoryId}")
     public void addToCategory(@PathVariable(name = "categoryId") int id, @RequestBody Product product) {
-        if (categoryRepository.findById(id)!= null){
+        if (categoryRepository.findById(id) != null) {
             product.setCategory(categoryRepository.findById(id));
         }
         productRepository.save(product);
@@ -113,7 +117,7 @@ public class BestellungsaufnahmeRestController {
     @PostMapping("/product/addToCategorybyID/{categoryId}")
     public void addToCategorybyId(@PathVariable(name = "categoryId") int id, @RequestParam int product_Id) {
         Product product = productRepository.findById(product_Id);
-        if (categoryRepository.findById(id)!= null){
+        if (categoryRepository.findById(id) != null) {
             product.setCategory(categoryRepository.findById(id));
         }
         productRepository.save(product);
@@ -148,25 +152,51 @@ public class BestellungsaufnahmeRestController {
     @PostMapping("/ordering/create")
     public void createOrdering(@RequestParam Boolean delivery, @RequestParam LocalDate timestamp,
                                @RequestParam LocalDate confirmed_time, @RequestParam Float price,
-                               @RequestBody Product[] productArrayList) {
-        //vllt noch eine Arrayliste von ingredient, welche dann hinzugefügt werden
-        LocalDateTime localDateTime = LocalDateTime.now();
-        Ordering o = new Ordering();
-        o.setTimestamp(localDateTime);
-        o.setDelivery(delivery);
-        o.setPrice(price);
-        o.setConfirmed_time(localDateTime.plusHours(1));
+                               @RequestBody String pib) {
+        try {
+            JSONObject object = new JSONObject(pib);
+            object.getBoolean("delivery");
+            object.getString("orderDate");
 
-        for (Product p : productArrayList) {
-            Ordering_Product op = new Ordering_Product();
-            op.setOrdering(o);
-            op.setProduct(p);
-            op.setQuantitiy(1);
-            op.setProduct_price(13);
-            ordering_prodcutRepository.save(op);
+            JSONArray products = object.getJSONArray("orderProduct");
+
+            for (int i = 0; i < products.length(); ++i) {
+                JSONObject product = products.getJSONObject(i);
+                product.getInt("id");
+                product.getInt("quantity");
+
+                JSONArray ingredients = object.getJSONArray("productIngredients");
+
+                for (int j = 0; j < ingredients.length(); ++j) {
+                    JSONObject ingredient = ingredients.getJSONObject(i);
+                    ingredient.getInt("id");
+                    ingredient.getBoolean("onTop");
+
+                }
+            }
+
+        } catch (JSONException e) {
+
         }
 
-        orderingRepository.save(o);
+
+
+        //vllt noch eine Arrayliste von ingredient, welche dann hinzugefügt werden
+//        LocalDateTime localDateTime = LocalDateTime.now();
+//        Ordering o = new Ordering();
+//        o.setTimestamp(localDateTime);
+//        o.setDelivery(delivery);
+//        o.setPrice(price);
+//        o.setConfirmed_time(localDateTime.plusHours(1));
+//        for (Product p : productArrayList) {
+//            Ordering_Product op = new Ordering_Product();
+//            op.setOrdering(o);
+//            op.setProduct(p);
+//            op.setQuantitiy(1);
+//            op.setProduct_price(13);
+//            ordering_prodcutRepository.save(op);
+//        }
+//        orderingRepository.save(o);
         //orderingRepository.save(ordering);
     }
 
