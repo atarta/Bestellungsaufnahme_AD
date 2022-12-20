@@ -155,15 +155,16 @@ public class BestellungsaufnahmeRestController {
             JSONObject object = new JSONObject(pib);
             Ordering ordering = new Ordering();
             ordering.setDelivery(object.getBoolean("delivery"));
-
+            Float money = 0.00f;
             //LocalDateTime orderDate = LocalDateTime.parse(object.getString("orderDate"));
             //ordering.setConfirmedTime(orderDate);//man könnte confirmed time auch als String machen;
 
-            ordering.setConfirmedTime(LocalDateTime.now());
-            ordering.setTimestamp(LocalDateTime.now());
+            LocalDateTime now = LocalDateTime.now();
+            ordering.setConfirmedTime(now);
+            ordering.setTimestamp(now.plusHours(1));
 
-            ordering.setPrice(13.9f);
-            //es fehlt noch der preis
+            ordering.setPrice(null);
+
             orderingRepository.save(ordering);
 
             JSONArray products = object.getJSONArray("orderProduct");
@@ -175,7 +176,9 @@ public class BestellungsaufnahmeRestController {
                 orderingProduct.setQuantitiy(product.getInt("quantity"));
                 orderingProduct.setProduct(productRepository.findById(product.getInt("id")));
                 orderingProduct.setOrdering(ordering);
-                orderingProduct.setProductPrice(13.9f);
+
+                Product p = orderingProduct.getProduct();
+                money = money + p.getPrice();
 
                 orderingProdcutRepository.save(orderingProduct);
 
@@ -188,33 +191,20 @@ public class BestellungsaufnahmeRestController {
                     orderingProductIngredients.setOrderingProduct(orderingProduct);
                     orderingProductIngredients.setOntop(ingredient.getBoolean("onTop"));
 
+                    Ingredient in = orderingProductIngredients.getIngredient();
+                    money = money + in.getPrice();
+
                     orderingProductIngredientsRepository.save(orderingProductIngredients);
                 }
             }
 
+            ordering.setPrice(money);
+            orderingRepository.save(ordering);
         } catch (JSONException e) {
 
         }
 
 
-
-        //vllt noch eine Arrayliste von ingredient, welche dann hinzugefügt werden
-//        LocalDateTime localDateTime = LocalDateTime.now();
-//        Ordering o = new Ordering();
-//        o.setTimestamp(localDateTime);
-//        o.setDelivery(delivery);
-//        o.setPrice(price);
-//        o.setConfirmed_time(localDateTime.plusHours(1));
-//        for (Product p : productArrayList) {
-//            OrderingProduct op = new OrderingProduct();
-//            op.setOrdering(o);
-//            op.setProduct(p);
-//            op.setQuantitiy(1);
-//            op.setProduct_price(13);
-//            ordering_prodcutRepository.save(op);
-//        }
-//        orderingRepository.save(o);
-        //orderingRepository.save(ordering);
     }
 
 
